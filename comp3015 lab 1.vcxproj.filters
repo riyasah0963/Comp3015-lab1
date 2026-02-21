@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Source Files\Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="shaders">
       <UniqueIdentifier>{9d8fe218-3a1b-4b87-ad2d-f1dd237018d6}</UniqueIdentifier>
     </Filter>
@@ -22,12 +18,16 @@
     <Filter Include="media">
       <UniqueIdentifier>{8b06acff-584d-413f-93f7-fae25d99058d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="helper\stb">
+      <UniqueIdentifier>{ed8ee548-1943-4cb2-a8af-51771d875495}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Public\openGL\Include\glad\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\Public\openGL\Helper\teapot.cpp">
@@ -57,6 +57,9 @@
     <ClCompile Include="cookbookogl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Public\openGL\Helper\drawable.h">
@@ -76,9 +79,6 @@
     </ClInclude>
     <ClInclude Include="scenebasic_uniform.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Public\openGL\Helper\stb_image.h">
-      <Filter>helper</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Public\openGL\Helper\glslprogram.h">
       <Filter>helper</Filter>
@@ -106,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="cookbookogl.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Public\openGL\Helper\stb_image.h">
+      <Filter>helper\stb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

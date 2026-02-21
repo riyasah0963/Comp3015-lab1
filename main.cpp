@@ -4,7 +4,7 @@
 int main(int argc, char* argv[])
 {
     SceneBasic_Uniform scene;
-    SceneRunner runner("COMP3015 Lab 3 - Spotlight", 800, 600);
+    SceneRunner runner("COMP3015 Lab 3" , 800, 600);
     runner.run(scene);
     return 0;
 }

@@ -132,12 +132,12 @@
     <ClCompile Include="..\..\..\..\Public\openGL\Helper\teapot.cpp" />
     <ClCompile Include="..\..\..\..\Public\openGL\Helper\torus.cpp" />
     <ClCompile Include="..\..\..\..\Public\openGL\Helper\trianglemesh.cpp" />
-    <ClCompile Include="..\..\..\..\Public\openGL\Include\glad\glad.c" />
     <ClCompile Include="..\..\..\Desktop\lab 2\Additional files\objmesh.cpp" />
     <ClCompile Include="..\..\..\Desktop\lab 2\Additional files\plane.cpp" />
     <ClCompile Include="cookbookogl.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scenebasic_uniform.cpp" />
+    <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Public\openGL\Helper\drawable.h" />

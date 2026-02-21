@@ -52,5 +52,6 @@ vec3 phongModel()
 
 void main()
 {
-    FragColor = vec4(phongModel(), 1.0);
+    vec3 color = phongModel();
+    FragColor = vec4(color, 1.0);
 }
