@@ -133,11 +133,11 @@
     <ClCompile Include="..\..\..\..\Public\openGL\Helper\torus.cpp" />
     <ClCompile Include="..\..\..\..\Public\openGL\Helper\trianglemesh.cpp" />
     <ClCompile Include="..\..\..\Downloads\Lab 4 Additional files (1)\Additional files\cube.cpp" />
-    <ClCompile Include="..\..\..\Downloads\Lab 4 Additional files (1)\Additional files\skybox.cpp" />
     <ClCompile Include="..\..\..\Downloads\Lab 4 Additional files (1)\Additional files\texture.cpp" />
     <ClCompile Include="cookbookogl.cpp" />
     <ClCompile Include="Helper\objmesh.cpp" />
     <ClCompile Include="Helper\plane.cpp" />
+    <ClCompile Include="Helper\skybox.cpp" />
     <ClCompile Include="Helper\stb\stb_image.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scenebasic_uniform.cpp" />
@@ -157,11 +157,11 @@
     <ClInclude Include="..\..\..\Desktop\lab 2\Additional files\aabb.h" />
     <ClInclude Include="..\..\..\Desktop\lab 2\Additional files\utils.h" />
     <ClInclude Include="..\..\..\Downloads\Lab 4 Additional files (1)\Additional files\cube.h" />
-    <ClInclude Include="..\..\..\Downloads\Lab 4 Additional files (1)\Additional files\skybox.h" />
     <ClInclude Include="..\..\..\Downloads\Lab 4 Additional files (1)\Additional files\texture.h" />
     <ClInclude Include="cookbookogl.h" />
     <ClInclude Include="Helper\objmesh.h" />
     <ClInclude Include="Helper\plane.h" />
+    <ClInclude Include="Helper\skybox.h" />
     <ClInclude Include="Helper\stb\stb_image_write.h" />
     <ClInclude Include="scenebasic_uniform.h" />
   </ItemGroup>
