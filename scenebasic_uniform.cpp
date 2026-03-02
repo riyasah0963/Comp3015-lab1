@@ -5,8 +5,13 @@
 #include <iostream>
 
 SceneBasic_Uniform::SceneBasic_Uniform()
-    : angle(0.0f)
+    : angle(0.0f), skybox(nullptr)
 {
+}
+
+SceneBasic_Uniform::~SceneBasic_Uniform()
+{
+    delete skybox;
 }
 
 void SceneBasic_Uniform::initScene()
@@ -23,6 +28,9 @@ void SceneBasic_Uniform::initScene()
     }
 
     glEnable(GL_DEPTH_TEST);
+
+    // 🔥 Create SkyBox AFTER OpenGL context exists
+    skybox = new SkyBox();
 }
 
 void SceneBasic_Uniform::update(float t)
@@ -48,7 +56,8 @@ void SceneBasic_Uniform::render()
 
     prog.setUniform("skybox", 0);
 
-    skybox.render();
+    if (skybox)
+        skybox->render();
 }
 
 void SceneBasic_Uniform::resize(int w, int h)
