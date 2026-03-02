@@ -3,27 +3,33 @@
 
 #include "scene.h"
 #include "glslprogram.h"
-#include "objmesh.h"
+#include "helper/skybox.h"
 
 #include <glm/glm.hpp>
-#include <memory>
 
 class SceneBasic_Uniform : public Scene
 {
 private:
     GLSLProgram prog;
-    std::unique_ptr<ObjMesh> mesh;
 
-    void compileAndLinkShader();
+    SkyBox* skybox;   // 🔥 Pointer (important!)
+
+    glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 projection;
+
+    float angle;
+
     void setMatrices();
 
 public:
-    SceneBasic_Uniform();     // constructor
+    SceneBasic_Uniform();
+    ~SceneBasic_Uniform();   // destructor
 
     void initScene() override;
     void update(float t) override;
     void render() override;
-    void resize(int w, int h) override;
+    void resize(int, int) override;
 };
 
 #endif
