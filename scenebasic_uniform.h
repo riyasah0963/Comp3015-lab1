@@ -12,7 +12,7 @@ class SceneBasic_Uniform : public Scene
 private:
     GLSLProgram prog;
 
-    SkyBox skybox;
+    SkyBox* skybox;   // 🔥 Pointer (important!)
 
     glm::mat4 model;
     glm::mat4 view;
@@ -24,6 +24,7 @@ private:
 
 public:
     SceneBasic_Uniform();
+    ~SceneBasic_Uniform();   // destructor
 
     void initScene() override;
     void update(float t) override;
