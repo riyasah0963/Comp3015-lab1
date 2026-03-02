@@ -1,21 +1,20 @@
 #version 460 core
 
-layout (location = 0) in vec3 VertexPosition;
-layout (location = 1) in vec3 VertexNormal;
+layout (location = 0) in vec3 aPos;
 
-out vec3 Position;
-out vec3 Normal;
+out vec3 TexCoords;
 
-uniform mat4 ModelViewMatrix;
-uniform mat3 NormalMatrix;
-uniform mat4 MVP;
+uniform mat4 Model;
+uniform mat4 View;
+uniform mat4 Projection;
 
 void main()
 {
-    vec4 pos = ModelViewMatrix * vec4(VertexPosition, 1.0);
+    TexCoords = aPos;
 
-    Position = pos.xyz;
-    Normal = normalize(NormalMatrix * VertexNormal);
+    // Remove translation from view matrix for skybox
+    mat4 viewNoTranslate = mat4(mat3(View));
 
-    gl_Position = MVP * vec4(VertexPosition, 1.0);
+    vec4 pos = Projection * viewNoTranslate * vec4(aPos, 1.0);
+    gl_Position = pos.xyww;  // Important trick for skybox depth
 }
