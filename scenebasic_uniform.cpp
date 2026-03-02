@@ -1,35 +1,80 @@
-#ifndef SCENEBASIC_UNIFORM_H
-#define SCENEBASIC_UNIFORM_H
+#include "scenebasic_uniform.h"
 
-#include "scene.h"
-#include "glslprogram.h"
-#include "helper/skybox.h"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/constants.hpp>
+#include <iostream>
 
-#include <glm/glm.hpp>
-
-class SceneBasic_Uniform : public Scene
+SceneBasic_Uniform::SceneBasic_Uniform()
+    : angle(0.0f), skybox(nullptr)
 {
-private:
-    GLSLProgram prog;
+}
 
-    SkyBox* skybox;   // 🔥 Pointer (important!)
+SceneBasic_Uniform::~SceneBasic_Uniform()
+{
+    delete skybox;
+}
 
-    glm::mat4 model;
-    glm::mat4 view;
-    glm::mat4 projection;
+void SceneBasic_Uniform::initScene()
+{
+    try {
+        prog.compileShader("shaders/basic_uniform.vert");
+        prog.compileShader("shaders/basic_uniform.frag");
+        prog.link();
+        prog.use();
+    }
+    catch (GLSLProgramException& e) {
+        std::cerr << e.what() << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
-    float angle;
+    glEnable(GL_DEPTH_TEST);
 
-    void setMatrices();
+    // 🔥 Create SkyBox AFTER OpenGL context exists
+    skybox = new SkyBox();
+}
 
-public:
-    SceneBasic_Uniform();
-    ~SceneBasic_Uniform();   // destructor
+void SceneBasic_Uniform::update(float t)
+{
+    angle += 0.5f * t;
+}
 
-    void initScene() override;
-    void update(float t) override;
-    void render() override;
-    void resize(int, int) override;
-};
+void SceneBasic_Uniform::render()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-#endif
+    prog.use();
+
+    view = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 3.0f),
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
+    model = glm::mat4(1.0f);
+
+    setMatrices();
+
+    prog.setUniform("skybox", 0);
+
+    if (skybox)
+        skybox->render();
+}
+
+void SceneBasic_Uniform::resize(int w, int h)
+{
+    glViewport(0, 0, w, h);
+
+    projection = glm::perspective(
+        glm::radians(60.0f),
+        (float)w / h,
+        0.1f,
+        100.0f
+    );
+}
+
+void SceneBasic_Uniform::setMatrices()
+{
+    prog.setUniform("Model", model);
+    prog.setUniform("View", view);
+    prog.setUniform("Projection", projection);
+}
