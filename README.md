@@ -1,165 +1,149 @@
-# COMP3015 – Computer Graphics  
-## Coursework 1 – Skybox Implementation Using Cubemap Textures
+# COMP3015 – Coursework 1
+## Real-Time OpenGL Scene Prototype
 
-### 👨‍🎓 Student Information
-- Name: RIYA SHAH
-- Student ID: 10816845
-- Module: COMP3015
-- Coursework: CW1 – Skybox Implementation Using Cubemap Textures
+---
 
-  📌 Overview
+## Student Information
+Module: COMP3015  
+Coursework: CW1  
+Author: RIYA SHAH  
+Submission Year: 2025/2026  
 
-This project implements a Skybox in OpenGL using cubemap textures.
+---
 
-A skybox creates the illusion of an infinite 3D environment by mapping six textures onto the inside of a cube that surrounds the scene. The skybox remains visually distant and forms the background of the rendered scene.
+## Project Overview
 
-⸻
+This project is a real-time 3D rendering prototype built using the COMP3015 Lab 1 OpenGL template. It demonstrates modern OpenGL rendering techniques including:
 
-🎯 Objectives
+- Blinn–Phong lighting model
+- Textured 3D model rendering
+- Skybox environment mapping
+- OBJ mesh loading
+- Shader-based rendering pipeline
 
-The objectives of this lab were:
-	•	Create a SkyBox class
-	•	Load and bind cubemap textures
-	•	Implement skybox vertex and fragment shaders
-	•	Render the skybox correctly using OpenGL
-	•	Handle depth testing appropriately
+The application renders a scene containing textured models and a surrounding cubemap skybox using programmable shaders.
 
-⸻
+---
 
-🧱 Project Structure
+## Development Environment
+
+- IDE: Visual Studio 2022
+- Platform: Windows 10/11
+- Graphics API: OpenGL 4.x Core Profile
+- Build Configuration: x64
+
+### External Libraries Used
+The project includes the following libraries inside the Include and Helper directories:
+
+- GLFW (Window and Input handling)
+- GLAD (OpenGL loader)
+- GLM (Mathematics library)
+- stb_image (Texture loading)
+- OBJMesh loader (Model loading utility)
+
+All required headers are included locally in the project.
+
+---
+
+## Project Structure
 
 comp3015 lab 1/
 │
-├── shaders/
-│   ├── basic_uniform.vert
-│   └── basic_uniform.frag
+├── Helper/              # Rendering utilities (mesh, skybox, shaders, etc.)
+├── Include/             # GLAD, GLFW, GLM headers
+├── media/               # Models and textures
+├── shaders/             # Vertex and Fragment shaders
+├── src/                 # Core rendering source files
 │
-├── helper/
-│   ├── skybox.h
-│   ├── skybox.cpp
-│   └── stb_image.h
-│
-├── scenebasic_uniform.h
+├── main.cpp
 ├── scenebasic_uniform.cpp
-└── media/texture/cube/pisa/
+├── cookbookogl.cpp
+├── comp3015 lab 1.sln
+└── README.md
 
-🧊 SkyBox Implementation
+## Rendering Features
 
-A dedicated SkyBox class was created to manage:
-	•	Vertex Array Object (VAO)
-	•	Vertex Buffer Object (VBO)
-	•	Cubemap texture loading
-	•	Rendering logic
+### 1. Blinn–Phong Lighting Model
 
-The cube is defined using 36 vertices (6 faces × 2 triangles × 3 vertices).
+Lighting is implemented in the fragment shader using the Blinn–Phong reflection model. The shader computes:
 
-⸻
+- Ambient lighting
+- Diffuse lighting (Lambert term)
+- Specular highlight using half-vector method
 
-🖼 Cubemap Textures
+Lighting is calculated per-fragment to achieve smooth shading.
 
-The skybox uses six images corresponding to the faces of a cube:
-	•	Positive X
-	•	Negative X
-	•	Positive Y
-	•	Negative Y
-	•	Positive Z
-	•	Negative Z
+---
 
-These textures are loaded using stb_image and assigned using:
+### 2. Texture Mapping
 
-GL_TEXTURE_CUBE_MAP_POSITIVE_X + i
+Textures are loaded using stb_image and applied to 3D meshes via UV coordinates. Texture sampling occurs in the fragment shader.
 
-The textures are stored in:
+---
 
-media/texture/cube/
+### 3. Skybox
 
-🎨 Shader Implementation
+A cubemap-based skybox is implemented using the Skybox class inside the Helper folder. This provides environmental background rendering surrounding the scene.
 
-Vertex Shader
+---
 
-The vertex shader:
-	•	Accepts cube vertex positions
-	•	Removes translation from the view matrix:
+### 4. Model Loading
 
-  mat4 viewNoTranslate = mat4(mat3(View));
-  This ensures the skybox remains visually distant and does not translate with the scene.
+OBJ models are loaded using the ObjMesh utility provided in the Helper directory. Mesh data includes:
 
-  It also uses:
+- Vertex positions
+- Normals
+- Texture coordinates
 
-  gl_Position = pos.xyww;
-  This ensures the skybox is rendered at maximum depth.
+---
 
-  Fragment Shader
+## Main Source Files
 
-The fragment shader:
-	•	Uses samplerCube
-	•	Samples from the cubemap texture
-	•	Outputs the final environment color
+- main.cpp  
+  Application entry point and scene runner.
 
-⸻
+- scenebasic_uniform.cpp  
+  Core scene implementation including shader setup, lighting parameters, and draw calls.
 
-⚙️ Depth Handling
+- cookbookogl.cpp  
+  Utility OpenGL helper functions.
 
-To ensure the skybox renders correctly behind all other objects, the depth function is temporarily changed:
+---
 
-glDepthFunc(GL_LEQUAL);
-After rendering the skybox, it is reset to:
+## Controls
 
-glDepthFunc(GL_LESS);
-This ensures proper depth testing behavior.
+- Keyboard and mouse input handled via GLFW
+- Camera movement implemented through view matrix updates
 
-🔧 Important Implementation Detail
+(If you used specific keys like WASD, you can add them here.)
 
-The SkyBox object is initialized inside initScene() rather than the constructor.
+---
 
-Reason:
+## How to Build and Run
 
-OpenGL functions such as glGenBuffers() require an active OpenGL context.
-Initializing the SkyBox before context creation caused runtime errors.
-Moving initialization to initScene() resolved this issue.
+1. Open comp3015 lab 1.sln in Visual Studio
+2. Set configuration to x64
+3. Build the solution
+4. Run the executable
 
-⸻
+Ensure that the media and shaders folders remain in the same directory as the executable.
 
-🐞 Issues Encountered
+---
 
-During development, the following issues were encountered:
-	•	Linker errors due to constructor mismatch
-	•	Multiple definition errors from stb_image
-	•	Access violation caused by calling OpenGL functions before context initialization
+## Video Demonstration
 
-All issues were resolved by:
-	•	Matching header and source declarations
-	•	Defining STB_IMAGE_IMPLEMENTATION only once
-	•	Creating the SkyBox after OpenGL context initialization
+Unlisted YouTube Link:
 
-⸻
+https://youtu.be/gqvrTCSuqTs?si=h-4wdIB0H-eTEfTz
 
-▶️ How to Run
-	1.	Open the project in Visual Studio
-	2.	Ensure the media folder is located in the project directory
-	3.	Build → Rebuild Solution
-	4.	Press F5 to run
+---
 
-The skybox will render as the background environment.
+## Git Repository
 
-⸻
-
-✅ Final Result
-
-The final implementation successfully:
-	•	Loads cubemap textures
-	•	Binds them to GL_TEXTURE_CUBE_MAP
-	•	Renders a surrounding skybox
-	•	Uses correct shader logic
-	•	Handles depth testing properly
-
-This completes the Lab 4 skybox implementation.
-
-
-## 🔗 
-GitHub Repository
-
-Repository link:
 https://github.com/riyasah0963/Comp3015-lab1
 
 ---
+
+## Notes
+
+This README serves as the written report for the coursework submission. It documents the technical implementation and project structure to support marking.
