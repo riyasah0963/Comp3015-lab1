@@ -1,11 +1,11 @@
 # COMP3015 – Computer Graphics  
-## Coursework 1 – Lighting & Shading (Lab 3)
+## Coursework 1 – Skybox Implementation Using Cubemap Textures
 
 ### 👨‍🎓 Student Information
 - Name: RIYA SHAH
 - Student ID: 10816845
 - Module: COMP3015
-- Coursework: CW1 – Lighting &
+- Coursework: CW1 – Skybox Implementation Using Cubemap Textures
 
   📌 Overview
 
@@ -25,6 +25,23 @@ The objectives of this lab were:
 	•	Handle depth testing appropriately
 
 ⸻
+
+🧱 Project Structure
+
+comp3015 lab 1/
+│
+├── shaders/
+│   ├── basic_uniform.vert
+│   └── basic_uniform.frag
+│
+├── helper/
+│   ├── skybox.h
+│   ├── skybox.cpp
+│   └── stb_image.h
+│
+├── scenebasic_uniform.h
+├── scenebasic_uniform.cpp
+└── media/texture/cube/pisa/
 
 🧊 SkyBox Implementation
 
